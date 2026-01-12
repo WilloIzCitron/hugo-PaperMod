@@ -1,3 +1,5 @@
+{{ $zekrom := resources.Get "zekrom.webp" }}
+{{ $reshiram := resources.Get "reshiram.webp" }}
 {{- if not (.Param "hideFooter") }}
 <footer class="footer">
     {{- if not site.Params.footer.hideCopyright }}
@@ -17,7 +19,7 @@
     <span>
         Powered by
         <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a> with modifications
     </span>
 </footer>
 {{- end }}
@@ -31,6 +33,58 @@
 {{- end }}
 
 {{- partial "extend_footer.html" . }}
+
+{{- /* theme-toggle is enabled */}}
+{{- if (not site.Params.disableThemeToggle) }}
+{{- /* theme is light */}}
+{{- if (eq site.Params.defaultTheme "light") }}
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+        document.getElementById("themed-img").src = "{{ $zekrom.RelPermalink }}";
+    }
+
+</script>
+{{- /* theme is dark */}}
+{{- else if (eq site.Params.defaultTheme "dark") }}
+<script>
+    if (localStorage.getItem("pref-theme") === "light") {
+        document.querySelector("html").dataset.theme = 'light';
+        document.getElementById("themed-img").src = "{{ $reshiram.RelPermalink }}";
+    }
+
+</script>
+{{- else }}
+{{- /* theme is auto */}}
+
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.querySelector("html").dataset.theme = 'dark';
+        document.getElementById("themed-img").src = "{{ $zekrom.RelPermalink }}";
+    } else if (localStorage.getItem("pref-theme") === "light") {
+       document.querySelector("html").dataset.theme = 'light';
+       document.getElementById("themed-img").src = "{{ $reshiram.RelPermalink }}";
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+        document.getElementById("themed-img").src = "{{ $zekrom.RelPermalink }}";
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+        document.getElementById("themed-img").src = "{{ $reshiram.RelPermalink }}";
+    }
+
+</script>
+{{- end }}
+{{- /* theme-toggle is disabled and theme is auto */}}
+{{- else if (and (ne site.Params.defaultTheme "light") (ne site.Params.defaultTheme "dark"))}}
+<script>
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.querySelector("html").dataset.theme = 'dark';
+    } else {
+        document.querySelector("html").dataset.theme = 'light';
+    }
+
+</script>
+{{- end }}
 
 <script>
     let menu = document.getElementById('menu');
@@ -87,11 +141,14 @@
 <script>
     document.getElementById("theme-toggle").addEventListener("click", () => {
         const html = document.querySelector("html");
+        const img = document.getElementById("themed-img");
         if (html.dataset.theme === "dark") {
             html.dataset.theme = 'light';
+            img.src = "{{ $reshiram.RelPermalink }}"
             localStorage.setItem("pref-theme", 'light');
         } else {
             html.dataset.theme = 'dark';
+            img.src = "{{ $zekrom.RelPermalink }}"
             localStorage.setItem("pref-theme", 'dark');
         }
     })

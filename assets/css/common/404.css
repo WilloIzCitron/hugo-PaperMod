@@ -9,3 +9,16 @@
     font-size: 160px;
     font-weight: 700;
 }
+
+.not-found-message {
+    position: absolute;
+    left: 0;
+    right: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 120%;
+    font-size: 40px;
+    font-weight: 700;
+}
+

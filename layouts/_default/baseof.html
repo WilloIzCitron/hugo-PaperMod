@@ -22,6 +22,7 @@
 <body id="top">
 {{- end }}
     {{ partialCached "header.html" . .Page -}}
+    <img id="themed-img" fetchpriority=high src=""></img>
     <main class="main">
         {{- block "main" . }}{{ end }}
     </main>

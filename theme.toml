@@ -41,6 +41,9 @@ features = [
 min_version = "0.146.0"
 
 [author]
+  name = "WilloIzCitron"
+
+[original-author]
   name = "Aditya Telange"
   homepage = "https://github.com/adityatelange/"
 

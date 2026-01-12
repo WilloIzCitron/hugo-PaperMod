@@ -12,6 +12,10 @@
     display: block;
 }
 
+.nav a:hover {
+    color: var(--hover);
+}
+
 .logo,
 #menu {
     display: flex;
@@ -34,6 +38,10 @@
     transform: translate(0, -10%);
     border-radius: 6px;
     margin-inline-end: 8px;
+}
+
+.logo a img:hover, .logo a svg:hover, .logo a:hover {
+    color: var(--hover);
 }
 
 button#theme-toggle {
